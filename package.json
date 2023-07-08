@@ -17,7 +17,8 @@
     "test": "react-scripts test --watchAll=false",
     "test:watch": "react-scripts test",
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "test-all-wfs": "yarn format; yarn lint; yarn test; yarn build"
   },
   "browserslist": {
     "production": [
