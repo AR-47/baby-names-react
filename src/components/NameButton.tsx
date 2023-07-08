@@ -1,4 +1,3 @@
-import { useState } from "react";
 import BabyNamesInterface from "../babyNamesinterface";
 import "../styles/NameButton.css";
 
