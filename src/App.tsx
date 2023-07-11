@@ -1,9 +1,9 @@
-import BabyNamesSection from "./components/BabyNamesSection";
+import NamesSection from "./components/NamesSection";
 
 function App(): JSX.Element {
   return (
     <>
-      <BabyNamesSection />
+      <NamesSection />
     </>
   );
 }

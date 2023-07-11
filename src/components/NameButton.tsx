@@ -1,7 +1,7 @@
-import BabyNamesInterface from "../babyNamesinterface";
+import NamesInterface from "../namesInterface";
 import "../styles/NameButton.css";
 
-function NameButton({ key, name, sex }: BabyNamesInterface): JSX.Element {
+function NameButton({ key, name, sex }: NamesInterface): JSX.Element {
   const getButtonColour = () => {
     if (sex === "f") {
       return "pink";
