@@ -1,4 +1,4 @@
-import NameInfoInterface from "../interfaces/nameInfoInterface";
+import NameInfoInterface from "../interfaces/nameInfoProps";
 
 function filterNames(nameInfoList: NameInfoInterface[], query: string) {
   query = query.toLowerCase();

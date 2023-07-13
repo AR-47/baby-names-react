@@ -1,10 +1,10 @@
-import SearchBarInterface from "../interfaces/searchBarInterface";
+import SearchBarProps from "../interfaces/searchBarProps";
 import "../styles/searchBar.css";
 
-function SearchBar(props: SearchBarInterface) {
+function SearchBar({value, handleSearchUpdate}: SearchBarProps) {
   return (
     <>
-      <input placeholder="Search for a name" value={props.value} onChange={(e) => props.onChange(e.target.value)} />
+      <input placeholder="Search for a name" value={value} onChange={(e) => handleSearchUpdate(e.target.value)} />
     </>
   );
 }
