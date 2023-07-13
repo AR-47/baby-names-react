@@ -1,14 +1,10 @@
-import { useState } from "react";
+import SearchBarInterface from "../interfaces/searchBarInterface";
+import "../styles/searchBar.css";
 
-interface SearchBar {
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
-function SearchBar(props: SearchBar) {
+function SearchBar(props: SearchBarInterface) {
   return (
     <>
-      <input value={props.value} onChange={props.onChange} />
+      <input placeholder="Search for a name" value={props.value} onChange={(e) => props.onChange(e.target.value)} />
     </>
   );
 }

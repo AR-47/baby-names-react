@@ -3,5 +3,4 @@ interface NamesInterface {
   name: string;
   sex: string;
 }
-
 export default NamesInterface;
