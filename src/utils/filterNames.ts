@@ -1,7 +1,7 @@
-import DataInterface from "../dataInterface";
+import NameInfoInterface from "../interfaces/nameInfoInterface";
 
 
-function filterNames(nameList: DataInterface[], query: string) {
+function filterNames(nameList: NameInfoInterface[], query: string) {
     query = query.toLowerCase();
     return nameList.filter(nameInfo =>
         nameInfo.name.split(' ').some(word =>
