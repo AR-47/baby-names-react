@@ -2,7 +2,7 @@ interface NameButtonProps {
     key: number,
     name: string,
     sex: string,
-    handleNameButtonClick: () => void
+    handleFavNames: () => void
 }
 
 export default NameButtonProps;
