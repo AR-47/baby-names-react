@@ -1,12 +1,12 @@
 import SearchBarProps from "../interfaces/searchBarProps";
 
-function SearchBar({value, onChange}: SearchBarProps) {
+function SearchBar({searchFor, handleSearchUpdate}: SearchBarProps) {
 
     return (
         <>
             <input 
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
+            value={searchFor}
+            onChange={(e) => handleSearchUpdate(e.target.value)}
             />
             <hr />
         </>

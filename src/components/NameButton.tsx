@@ -1,11 +1,11 @@
 import NameButtonProps from "../interfaces/nameButtonProps";
-import "../styles/NameButton.css";
+import "../styles/nameButton.css";
 
-function NameButton({ name, sex, handleFavNames }: NameButtonProps): JSX.Element {
+function NameButton({ nameInfo, handleFavNames }: NameButtonProps): JSX.Element {
   const getButtonColour = () => {
-    if (sex === "f") {
+    if (nameInfo.sex === "f") {
       return "pink";
-    } else if (sex === "m") {
+    } else if (nameInfo.sex === "m") {
       return "blue";
     }
   };
@@ -14,11 +14,11 @@ function NameButton({ name, sex, handleFavNames }: NameButtonProps): JSX.Element
 
   return (
     <button
-      value={name}
+      value={nameInfo.name}
       className={`name-button ${buttonColour}`}
-      onClick = {handleFavNames}
+      onClick = {(e) => handleFavNames(nameInfo.id)}
       >
-      {name}
+      {nameInfo.name}
     </button>
   );
 }

@@ -1,53 +1,70 @@
 import { useState } from "react";
 import filterNames from "../utils/filterNames";
-import rawNameData from "../data/namesData.json";
+import rawNamesData from "../data/namesData.json";
 import SearchBar from "./SearchBar";
-import NamesDisplay from "./NamesDisplay";
 import NameInfoInterface from "../interfaces/nameInfoInterface";
 import NameButton from "./NameButton";
+import NamesSection from "./NamesSection";
 
 function BabyNamesApp(): JSX.Element {
   const [inputValue, setInputValue] = useState<string>("");
-  const [favNames, setFavNames] = useState<NameInfoInterface[]>([]) 
-
   const handleSearchUpdate = (enteredText: string) => {
     setInputValue(enteredText);
   };
+  
+  const [favNames, setFavNames] = useState<JSX.Element[]>([]) 
+  const favouriteNames: NameInfoInterface[] = []
 
-  const handleFavNames = () => {
-    console.log('Need to implement logic here for selecting/unselecting favourtite names');
+  const allNamesList: NameInfoInterface[]= [...rawNamesData].sort((a, b) => a.name.localeCompare(b.name));
+  for (const nameInfo of allNamesList) {
+    nameInfo['isFav'] = false;
   }
 
-  const nameInfoList: NameInfoInterface[]= [...rawNameData].sort((a, b) => a.name.localeCompare(b.name));
+  const handleFavNames = () => {
+    console.log('Hello');
+    for (const nameInfo of allNamesList) {
+      if (nameInfo.isFav === true) {
+        nameInfo.isFav = false;
+      } else {
+        nameInfo.isFav = true;
+      }
+    }
+    setFavNames(favNamesList)
+  }
 
-  const favNamesList = favNames.map((nameInfo) => {
-    return (
-      <NameButton
-        key={nameInfo.id}
-        name={nameInfo.name}
-        sex={nameInfo.sex}
-        handleFavNames={handleFavNames}
-      />        
-    );
-  })
-
-  const nonFavNamesList = filterNames(nameInfoList, inputValue).map((nameInfo) => {
-    return (
+  const favNamesList = favouriteNames.map((name) => {
+    if (name.isFav === true) {
+      return (
         <NameButton
-          key={nameInfo.id}
-          name={nameInfo.name}
-          sex={nameInfo.sex}
+        key={name.id}
+        nameInfo={name}
+        handleFavNames={handleFavNames}
+        />        
+        );
+      }
+      return (<></>)
+      
+    })
+
+  const nonFavNamesList = filterNames(allNamesList, inputValue).map((name) => {
+    if (name.isFav === false) {
+      return (
+        <NameButton
+          key={name.id}
+          nameInfo={name}
           handleFavNames={handleFavNames}
         />        
     );
+    }
+    return (<></>)
   })
 
   return (
     <>
       <h1>Baby Names</h1>
-      <SearchBar value={inputValue} onChange={handleSearchUpdate} />
-      <NamesDisplay displayHeading="Favourites" listOfNames={favNamesList} />
-      <NamesDisplay displayHeading="All names" listOfNames={nonFavNamesList} />
+      <SearchBar searchFor={inputValue} handleSearchUpdate={handleSearchUpdate} />
+      <NamesSection displayHeading="Favourites" listOfNames={favNamesList} />
+      <NamesSection displayHeading="All names" listOfNames={nonFavNamesList} />
     </>
   );
 }
