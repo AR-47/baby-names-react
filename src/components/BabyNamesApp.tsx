@@ -1,57 +1,34 @@
 import { useState } from "react";
-import filterNames from "../utils/filterNames";
 import rawNamesData from "../data/namesData.json";
-import SearchBar from "./SearchBar";
 import NameInfoInterface from "../interfaces/nameInfoInterface";
+import filterNames from "../utils/filterNames";
+import SearchBar from "./SearchBar";
 import NameButton from "./NameButton";
 import NamesSection from "./NamesSection";
 
 function BabyNamesApp(): JSX.Element {
-  const allNamesList: NameInfoInterface[] = [...rawNamesData].sort((a, b) =>
-    a.name.localeCompare(b.name)
-  );
+  const allNamesList: NameInfoInterface[] = [...rawNamesData];
 
   const [inputValue, setInputValue] = useState<string>("");
   const [favNames, setFavNames] = useState<NameInfoInterface[]>([]);
+  const [nonfavNames, setNonFavNames] =
+    useState<NameInfoInterface[]>(allNamesList);
 
   const handleSearchUpdate = (enteredText: string) => {
     setInputValue(enteredText);
   };
 
   const handleNameClick = (clickedName: NameInfoInterface) => {
-    const idOfClickedName = allNamesList.findIndex(
-      (currentName) => currentName.id === clickedName.id
-    );
-
-    console.log(
-      `${clickedName.name}'s isFav property before clicking is: ${clickedName.isFav}`
-    );
-
-    allNamesList.find((name) => {
-      if (name.id === idOfClickedName) {
-        name.isFav = name.isFav === true ? false : true;
-      }
-    });
-
     if (favNames.includes(clickedName)) {
       setFavNames((prev) => prev.filter((name) => name.id !== clickedName.id));
+      setNonFavNames((prev) => [...prev, clickedName]);
     } else {
-      allNamesList.splice(
-        allNamesList.findIndex((name) => name.id === idOfClickedName),
-        1
-      );
       setFavNames((prev) => [...prev, clickedName]);
+      setNonFavNames((prev) =>
+        prev.filter((name) => name.id !== clickedName.id)
+      );
     }
-    console.log(
-      `${clickedName.name}'s isFav property after clicking is: ${
-        allNamesList.find((name) => name.id === idOfClickedName)!.isFav
-      }`
-    );
   };
-
-  for (const nameInfo of allNamesList) {
-    nameInfo["isFav"] = false;
-  }
 
   const favNameButtons = favNames.map((name) => {
     return (
@@ -59,20 +36,14 @@ function BabyNamesApp(): JSX.Element {
     );
   });
 
-  const nonFavNameButtons = filterNames(allNamesList, inputValue).map(
-    (name) => {
-      if (name.isFav === false) {
-        return (
-          <NameButton
-            key={name.id}
-            nameInfo={name}
-            handleClick={handleNameClick}
-          />
-        );
-      }
-      return <></>;
-    }
-  );
+  const nonFavNameButtons = filterNames(
+    nonfavNames.sort((a, b) => a.name.localeCompare(b.name)),
+    inputValue
+  ).map((name) => {
+    return (
+      <NameButton key={name.id} nameInfo={name} handleClick={handleNameClick} />
+    );
+  });
 
   return (
     <>
