@@ -1,7 +1,7 @@
 import { useState } from "react";
 import rawNamesData from "../data/namesData.json";
-import NameInfoInterface from "../interfaces/nameInfoInterface";
 import filterNames from "../utils/filterNames";
+import NameInfoInterface from "../interfaces/nameInfoInterface";
 import SearchBar from "./SearchBar";
 import NameButton from "./NameButton";
 import NamesSection from "./NamesSection";
@@ -47,7 +47,6 @@ function BabyNamesApp(): JSX.Element {
 
   return (
     <>
-      <h1>Baby Names</h1>
       <SearchBar
         searchFor={inputValue}
         handleSearchUpdate={handleSearchUpdate}
