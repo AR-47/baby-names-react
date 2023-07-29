@@ -1,7 +1,7 @@
 import NameButtonProps from "../interfaces/nameButtonProps";
 import "../styles/nameButton.css";
 
-function NameButton({ nameInfo, handleFavNames }: NameButtonProps): JSX.Element {
+function NameButton({ nameInfo, handleClick }: NameButtonProps): JSX.Element {
   const getButtonColour = () => {
     if (nameInfo.sex === "f") {
       return "pink";
@@ -16,8 +16,8 @@ function NameButton({ nameInfo, handleFavNames }: NameButtonProps): JSX.Element 
     <button
       value={nameInfo.name}
       className={`name-button ${buttonColour}`}
-      onClick = {(e) => handleFavNames(nameInfo.id)}
-      >
+      onClick={() => handleClick(nameInfo)}
+    >
       {nameInfo.name}
     </button>
   );
